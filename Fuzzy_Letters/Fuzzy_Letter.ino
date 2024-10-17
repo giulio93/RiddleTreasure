@@ -12,7 +12,7 @@ int GroundTwo = 2;
 int GroundThree = 3;
 
 int dodici = 12;
-int unidici =11;
+int unidici = 11;
 // int d, u;
 
 int analogPin = 0;
@@ -30,7 +30,9 @@ int CONTROL2 = 200;
 
 uint32_t mask[3] = { 0x0, 0x0, 0x0 };
 uint32_t frame[3] = { 0x0, 0x0, 0x0 };
-char code[] = { "ABBCCA00" };
+char codeToDraw[9] = { "XXXXXXXX" };
+char codeToWrite[7] = { "XXXXXX" };
+
 
 
 int masker = 255;
@@ -85,7 +87,12 @@ void setup() {
 
 void loop() {
 
+
+
+
   if (state == idle) {
+    generateRandomCode(codeToDraw, codeToWrite);
+    Serial1.flush();
     state_sender = idle;
     palywithMe();
   }
@@ -106,9 +113,9 @@ void loop() {
 
   if (state == bananas) {
     if ((CONTROL1 == 0) && (CONTROL2 == 0)) {
-        state_sender = pwd;
-        showPassoword();
-        rightArrow();
+      state_sender = pwd;
+      showPassoword();
+      rightArrow();
     } else {
       state_sender = bananas;
       matrix.loadFrame(sad);
@@ -118,3 +125,16 @@ void loop() {
 }
 
 
+void generateRandomCode(char codeToDraw[], char codeToWrite[]) {
+  char letters[] = { "ABC" };
+
+  for (int i = 0; i < 6; i++) {
+    codeToWrite[i] = letters[random(3)];  // Random letters A-C
+  }
+
+  strcpy(codeToDraw, codeToWrite);
+  strcat(codeToDraw, "00");
+
+  Serial.println(codeToDraw);
+  Serial.println(codeToWrite);
+}

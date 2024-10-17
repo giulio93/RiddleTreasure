@@ -2,7 +2,7 @@ void showPassoword() {
   masker = 0;
   for (int k = 0; k < 8;) {
     Mask(masker % 27584930445, mask);
-    setMask(&code[k], &code[k + 1], frame, mask);
+    setMask(&codeToDraw[k], &codeToDraw[k + 1], frame, mask);
     k = k + 2;
     matrix.loadFrame(frame);
     delay(800);

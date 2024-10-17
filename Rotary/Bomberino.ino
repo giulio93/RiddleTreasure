@@ -30,10 +30,10 @@ riddleEvent prev_state;
 riddleEvent reader_state;
 
 
-//int LedBrigh[8] = { -1, -1, -1, -1, -1, -1, -1, -1 };
-int LedBrigh[8] = { 12, 24, 12, 22, 5, 13, 25, -1 };
+int LedBrigh[8] = { -1, -1, -1, -1, -1, -1, -1, -1 };
+//int LedBrigh[8] = { 12, 24, 12, 22, 5, 13, 25, -1 };
 //int LedSucc[8]= {25,37,10,25,15,3,33,12};
-int LedSucc[8] = { 12, 24, 12, 22, 5, 13, 25, 7 };
+int LedSucc[8] = { 12, 24, 12, 22, 12, 13, 25, 12 };
 int LedWinns[8] = { 100, 90, 80, 70, 40, 50, 30, 20 };
 
 
@@ -68,15 +68,16 @@ void setup() {
 
 void loop() {
   //DEBUG
-  if(millis() % 100 == 0){
-    LedBrigh[7] = 7;
-    delay(1);
-  }
+  // if(millis() % 100 == 0){
+  //   LedBrigh[7] = 7;
+  //   delay(1);
+  // }
   
   Serial.println(state);
 
   bool click = encoder.isPressed();
   if(click && state == idle){
+    Serial1.flush();
     state = start;
     initializeLEDs();
   }

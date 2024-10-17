@@ -12,7 +12,8 @@
 
 int ServoPWMPin = 9;
 int servoPos = 0;
-char code[] = { "ABBCCA" };
+//char code[] = { "ABBCCA" };
+String code = "";
 char passkey[] = { "XXXXXX" };
 int nextLetter = 0;
 
@@ -77,10 +78,11 @@ void setup() {
 void loop() {
 
   if (state == idle) {
+    Serial1.flush();
     state_sender = idle;
     updateCounter = false;
     resetPassword();
-    nextLetter =0;
+    nextLetter = 0;
   }
 
   if (state == pwd && state_sender != win) {

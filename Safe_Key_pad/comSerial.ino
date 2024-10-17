@@ -3,10 +3,17 @@ void Serial1_receiver() {
     int data = Serial1.read();
     riddleEvent currentEvent = (riddleEvent)data;  // Cast int to riddleEvent
     state = currentEvent;
+    Serial.print("read => ");
+    Serial.println(state);
+    if (state == start) {
+      //char codeToWrite[] = { "ABBCCA" };
+      String i = Serial1.readString();
+      Serial.print("read => ");
+      Serial.println(i);
+      code = i;
+    }
   }
   delay(1);
-  // Serial.print("read => ");
-  // Serial.println(state);
 }
 
 void Serial1_sender() {

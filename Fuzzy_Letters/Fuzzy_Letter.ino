@@ -56,7 +56,6 @@ riddleEvent prev_state;
 
 void setup() {
   prev_state = idle;
-  //state = bananas;
   matrix.begin();
 
   pinMode(GroundTwo, OUTPUT);
@@ -86,9 +85,6 @@ void setup() {
 }
 
 void loop() {
-
-
-
 
   if (state == idle) {
     generateRandomCode(codeToDraw, codeToWrite);
@@ -130,11 +126,23 @@ void generateRandomCode(char codeToDraw[], char codeToWrite[]) {
 
   for (int i = 0; i < 6; i++) {
     codeToWrite[i] = letters[random(3)];  // Random letters A-C
+    if (i > 3) {
+      if (codeToWrite[i - 3] == codeToWrite[i - 1]) {
+        if (codeToWrite[i - 2] == codeToWrite[i]) {
+          while (codeToWrite[i - 2] == codeToWrite[i]) {
+            codeToWrite[i] = letters[random(3)];
+          }
+        }
+      }
+    }
   }
+
+
+  Serial.print("=====");
+
+
 
   strcpy(codeToDraw, codeToWrite);
   strcat(codeToDraw, "00");
 
-  Serial.println(codeToDraw);
-  Serial.println(codeToWrite);
 }
